@@ -95,8 +95,9 @@ void print(){
     } students_db[number_of_students];
 
     // Print name of all students
+    int i = 0;
     fseek(fp, 0, SEEK_SET);
-    for(int i = 0; i < number_of_students; i++){
+    for(i = 0; i < number_of_students; i++){
         fread(&students_db[i], sizeof(struct students_db), 1, fp);
         printf("+----------------------------------+\n");
         printf("Student %d: %s\n", i + 1, students_db[i].name);
@@ -113,6 +114,7 @@ void ranking(){
     FILE *fp;
     fp = fopen("students.dat", "rb");
     int number_of_students = get_number_of_students_db(fp);
+    int i = 0;
 
     struct students_db {
         char name[30];
@@ -127,11 +129,11 @@ void ranking(){
     
     // Read all students
     fseek(fp, 0, SEEK_SET);
-    for(int i = 0; i < number_of_students; i++){
+    for(i = 0; i < number_of_students; i++){
         fread(&students_db[i], sizeof(struct students_db), 1, fp);
     }
 
-    for(int i = 0; i < number_of_students; i++){
+    for(i = 0; i < number_of_students; i++){
         for(int j = i + 1; j < number_of_students; j++){
             if(students_db[i].average < students_db[j].average){
                 struct students_db temp = students_db[i];
@@ -157,6 +159,7 @@ void average(){
     printf("Enter class name to calculate avg score: ");
     char given_class_name[10];
     int num_student_in_given_class_name = 0;
+    int i = 0;
     scanf("%s", given_class_name);
 
     FILE *fp;
@@ -172,11 +175,11 @@ void average(){
 
     // Read all students
     fseek(fp, 0, SEEK_SET);
-    for(int i = 0; i < number_of_students; i++){
+    for(i = 0; i < number_of_students; i++){
         fread(&students_db[i], sizeof(struct students_db), 1, fp);
     }
 
-    for (int i = 0; i < number_of_students; i++){
+    for (i = 0; i < number_of_students; i++){
         if(strcmp(students_db[i].class, given_class_name) == 0){
             total_score += students_db[i].average;
             num_student_in_given_class_name++;
@@ -191,7 +194,7 @@ void average(){
 
     // Print ranking
     printf("Calculated based on:\n");
-    for(int i = 0; i < number_of_students; i++){
+    for(i = 0; i < number_of_students; i++){
         printf("%d. %s, score: %.2f\n", i + 1, students_db[i].name, students_db[i].average);
     }
 
